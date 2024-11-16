@@ -12,11 +12,12 @@ public class CommandsStrorage {
 
     public void addPartOfCommand(long chatId, String partOfCommand) { // добавление части команды
         if (commands.containsKey(chatId)) {
-            commands.put(chatId, commands.get(chatId) + partOfCommand);
+            commands.put(chatId, commands.get(chatId) + " " + partOfCommand);
         } 
         else {
             commands.put(chatId, partOfCommand);
         }
+        System.out.println(commands.get(chatId));
     }
 
     public void clearCommand(long chatId) { // очистка команды
@@ -25,9 +26,9 @@ public class CommandsStrorage {
 
     public boolean isCommandReady(long chatId) { // проверка на готовность команды
         String command = commands.get(chatId);
-        if (command != null && command.length() >= 3) { 
-            String lastThreeChars = command.substring(command.length() - 3);
-            return lastThreeChars.equals("END"); // проверка, что последние 3 символа равны "END"
+        if (command != null && command.length() >= 4) { 
+            String lastThreeChars = command.substring(command.length() - 4);
+            return lastThreeChars.equals(" END"); // проверка, что последние 3 символа равны "END"
         }
         return false;
     }

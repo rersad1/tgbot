@@ -12,6 +12,7 @@ public class MyBot {
         BotInitialization botInit = new BotInitialization();
         TelegramBot bot = new TelegramBot(botInit.getToken());
         Buttons buttons = new Buttons();
+        CommandsStrorage commandsStrorage = new CommandsStrorage();
         ButtonsHandler buttonsHandler = new ButtonsHandler();
         MessageHandler messageHandler = new MessageHandler();
         bot.execute(new DeleteWebhook());
@@ -19,12 +20,12 @@ public class MyBot {
         bot.setUpdatesListener(updates -> {
             for (Update update : updates) {
                 if (update.callbackQuery() != null) {
-                    buttonsHandler.handleCallbackQuery(bot, update.callbackQuery());
+                    buttonsHandler.handleCallbackQuery(bot, update.callbackQuery(), commandsStrorage);
                 }
                 else if (update.message() != null && update.message().text() != null) {
                     long chatId = update.message().chat().id();
                     String messageText = update.message().text();
-                    messageHandler.handle(messageText, chatId, bot);
+                    messageHandler.handle(messageText, chatId, bot, commandsStrorage);
 
                     
                     InlineKeyboardMarkup FunctionsKeyboard = buttons.createFunctionsKeyboard();
