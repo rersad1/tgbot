@@ -28,7 +28,7 @@ public class CommandsStrorage {
         String command = commands.get(chatId);
         if (command != null && command.length() >= 4) { 
             String lastThreeChars = command.substring(command.length() - 4);
-            return lastThreeChars.equals(" END"); // проверка, что последние 3 символа равны "END"
+            return lastThreeChars.equals(" END"); // проверка, что последние 4 символа равны " END"
         }
         return false;
     }
