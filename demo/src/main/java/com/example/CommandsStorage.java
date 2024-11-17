@@ -2,7 +2,7 @@ package com.example;
 
 import java.util.HashMap;
 
-public class CommandsStrorage {
+public class CommandsStorage {
 
     private HashMap<Long, String> commands = new HashMap<Long, String>();
     
@@ -27,8 +27,8 @@ public class CommandsStrorage {
     public boolean isCommandReady(long chatId) { // проверка на готовность команды
         String command = commands.get(chatId);
         if (command != null && command.length() >= 4) { 
-            String lastThreeChars = command.substring(command.length() - 4);
-            return lastThreeChars.equals(" END"); // проверка, что последние 4 символа равны " END"
+            String lastFourChars = command.substring(command.length() - 4);
+            return lastFourChars.equals(" END"); // проверка, что последние 4 символа равны " END"
         }
         return false;
     }

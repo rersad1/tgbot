@@ -5,8 +5,9 @@ import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
 
 public class MessageHandler {
-    public void handle(String message, long chatId, TelegramBot bot, CommandsStrorage commandsStrorage, InlineKeyboardMarkup functionsKeyboard) {
-        switch (message) {
+    public void handle(String message, long chatId, TelegramBot bot, CommandsStorage commandsStrorage, InlineKeyboardMarkup functionsKeyboard) {
+
+        switch (message) { // обработка команд через /command
             case "/start":
                 bot.execute(new SendMessage(chatId, "Добро пожаловать!"));
                 bot.execute(new SendMessage(chatId, "Выберите функцию:").replyMarkup(functionsKeyboard));                
@@ -20,7 +21,7 @@ public class MessageHandler {
                 return;
         }
         
-        if (commandsStrorage.getCurrentCommand(chatId) == "REPORT") {
+        if (commandsStrorage.getCurrentCommand(chatId) == "REPORT") { // обработка текста отчета
             commandsStrorage.addPartOfCommand(chatId, message);
             commandsStrorage.addPartOfCommand(chatId, "END");
         }
@@ -28,6 +29,7 @@ public class MessageHandler {
             message += " END";
             commandsStrorage.addPartOfCommand(chatId, message);
             bot.execute(new SendMessage(chatId, "Выполняется запрос..."));
+            
         }
         else {
             bot.execute(new SendMessage(chatId, "Введены неправильные данные. Попробуйте еще раз."));

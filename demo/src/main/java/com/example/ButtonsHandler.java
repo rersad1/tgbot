@@ -8,7 +8,7 @@ import com.pengrad.telegrambot.request.DeleteMessage;
 import com.pengrad.telegrambot.request.SendMessage;
 
 public class ButtonsHandler {
-    public void handleCallbackQuery(TelegramBot bot, CallbackQuery callbackQuery, CommandsStrorage commandsStrorage) {
+    public void handleCallbackQuery(TelegramBot bot, CallbackQuery callbackQuery, CommandsStorage commandsStrorage) {
         @SuppressWarnings("deprecation")
         long chatId = callbackQuery.message().chat().id(); // ID чата
         @SuppressWarnings("deprecation")
@@ -28,6 +28,14 @@ public class ButtonsHandler {
             case "week_lessons":
                 bot.execute(new SendMessage(chatId, "Выбирете тип недели").replyMarkup(weekNumber));
                 break;
+            case "monday":
+            case "tuesday":
+            case "wednesday":
+            case "thursday":
+            case "friday":
+            case "saturday": 
+                bot.execute(new SendMessage(chatId, "Выбирете тип недели").replyMarkup(weekNumber));
+                break;   
             default:
                 bot.execute(new SendMessage(chatId, "Введите номер группы, о которой хотите узнать информацию"));
                 break;                                          

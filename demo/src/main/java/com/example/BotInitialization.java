@@ -13,7 +13,9 @@ import com.pengrad.telegrambot.response.GetMeResponse;
 public class BotInitialization {
 
     private String token;
-
+    
+    private Long logsChatId;
+    
     private void validateToken() { // проверка токена на валидность
         TelegramBot bot = new TelegramBot(token);
         GetMeResponse getMeResponse = bot.execute(new GetMe());
@@ -34,6 +36,7 @@ public class BotInitialization {
             return;
         }
 
+        setLogsChatId(Long.parseLong(props.getProperty("logsChannel")));
         setToken(props.getProperty("token"));
         
     }
@@ -45,5 +48,13 @@ public class BotInitialization {
     public void setToken(String token) {
         this.token = token;
         validateToken();
+    }
+    
+    public void setLogsChatId(Long reportChatId) {
+        this.logsChatId = reportChatId;
+    }
+
+    public Long getLogsChatId() {
+        return logsChatId;
     }
 }
