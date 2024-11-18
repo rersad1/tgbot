@@ -4,11 +4,13 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.request.DeleteWebhook;
+import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.UpdatesListener;
 
 public class MyBot {
     public static Long logsChannel;
     public static void main(String[] args) {
+        
         BotInitialization botInit = new BotInitialization();
         TelegramBot bot = new TelegramBot(botInit.getToken());
         logsChannel = botInit.getLogsChatId();
@@ -34,6 +36,7 @@ public class MyBot {
                         String commandText = commandsStorage.getCurrentCommand(chatId);
                         commandsHandler.handleCommand(bot, commandText, chatId);
                         commandsStorage.clearCommand(chatId);
+                        bot.execute(new SendMessage(chatId, "Выберите функцию:").replyMarkup(functionsKeyboard));
                     }
                 }
             }

@@ -6,6 +6,8 @@ import com.pengrad.telegrambot.request.SendMessage;
 public class CommandsHandler {
     private String command;
     private String[] partsOfCommand;
+    private String url;
+    RequestCreator requestCreator = new RequestCreator();
 
     public void parseCommand(String commandText) {
         int firstSpaceIndex = commandText.indexOf(' ');
@@ -38,14 +40,23 @@ public class CommandsHandler {
 
     public void handleCommand(TelegramBot bot, String commandText, long chatId) {
         parseCommand(commandText);
-
-        if ("REPORT".equals(this.command)) {
-            String report = parseReportText(commandText);
-            bot.execute(new SendMessage(MyBot.logsChannel, report));
-        }
         
-        if ("day_lessons".equals(this.command)) {
-            System.out.println("Ну типо да"); // Переделать под отправку в канал
+        switch (this.command) {
+
+            case "REPORT":
+                String report = parseReportText(commandText);
+                bot.execute(new SendMessage(MyBot.logsChannel, report));
+                break;
+
+            case "day_lessons":
+                url = "https://digital.etu.ru/api/mobile/schedule?weekDay=" + partsOfCommand[1] + "&subjectType=&groupNumber=" + partsOfCommand[3] + "&joinWeeks=false";// Переделать под отправку в канал
+                break;
+
+            default:
+                url = "https://digital.etu.ru/api/mobile/schedule?weekDay=&subjectType=&groupNumber=" + partsOfCommand[1] + "&joinWeeks=false";
+                break;
         }
-    }
+        requestCreator.searchResult(url);
+    } 
+
 }

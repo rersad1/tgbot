@@ -13,7 +13,6 @@ import com.pengrad.telegrambot.response.GetMeResponse;
 public class BotInitialization {
 
     private String token;
-    
     private Long logsChatId;
     
     private void validateToken() { // проверка токена на валидность
@@ -28,7 +27,7 @@ public class BotInitialization {
     public BotInitialization() { // загрузка токена из файла
         Properties props = new Properties();
         try (InputStream input = MyBot.class.getClassLoader().getResourceAsStream("config.properties")) {
-            props.load(input);
+            props.load(input);  
         } 
         catch (IOException ex) {
             ex.printStackTrace();

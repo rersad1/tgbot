@@ -20,16 +20,16 @@ public class Buttons {
     public InlineKeyboardMarkup createDaysOfWeekKeyboard() {
         return new InlineKeyboardMarkup(
             new InlineKeyboardButton[]{
-                new InlineKeyboardButton("Понедельник").callbackData("monday"),
-                new InlineKeyboardButton("Вторник").callbackData("tuesday")
+                new InlineKeyboardButton("Понедельник").callbackData("MON"),
+                new InlineKeyboardButton("Вторник").callbackData("TUE")
             },
             new InlineKeyboardButton[]{
-                new InlineKeyboardButton("Среда").callbackData("wednesday"),
-                new InlineKeyboardButton("Четверг").callbackData("thursday")
+                new InlineKeyboardButton("Среда").callbackData("WED"),
+                new InlineKeyboardButton("Четверг").callbackData("THU")
             },
             new InlineKeyboardButton[]{
-                new InlineKeyboardButton("Пятница").callbackData("friday"),
-                new InlineKeyboardButton("Суббота").callbackData("saturday")
+                new InlineKeyboardButton("Пятница").callbackData("FRI"),
+                new InlineKeyboardButton("Суббота").callbackData("SAT")
             }
         );
     }
@@ -37,8 +37,8 @@ public class Buttons {
     public InlineKeyboardMarkup createWeekNumberkeyboard() {
         return new InlineKeyboardMarkup(
             new InlineKeyboardButton[]{
-                new InlineKeyboardButton("Четная").callbackData("even"),
-                new InlineKeyboardButton("Нечетная").callbackData("odd")
+                new InlineKeyboardButton("Четная").callbackData("1"),
+                new InlineKeyboardButton("Нечетная").callbackData("2")
             }
         );    
     }

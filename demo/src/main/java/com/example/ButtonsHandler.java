@@ -28,12 +28,12 @@ public class ButtonsHandler {
             case "week_lessons":
                 bot.execute(new SendMessage(chatId, "Выбирете тип недели").replyMarkup(weekNumber));
                 break;
-            case "monday":
-            case "tuesday":
-            case "wednesday":
-            case "thursday":
-            case "friday":
-            case "saturday": 
+            case "MON":
+            case "TUE":
+            case "WED":
+            case "THU":
+            case "FRI":
+            case "SAT": 
                 bot.execute(new SendMessage(chatId, "Выбирете тип недели").replyMarkup(weekNumber));
                 break;   
             default:
