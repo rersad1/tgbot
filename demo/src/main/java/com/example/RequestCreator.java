@@ -7,6 +7,9 @@ import java.net.URI;
 import java.net.URL;
 
 public class RequestCreator {
+
+    
+
     public String searchResult(String url) { // получение результата поиска
     try {
         URI uri = new URI(url); // Создание URI вместо URL
@@ -24,7 +27,7 @@ public class RequestCreator {
             }
             in.close();
             
-            System.out.println(response.toString());
+            // System.out.println(response.toString());
             return response.toString(); // Возврат результата поиска
             
         } 
