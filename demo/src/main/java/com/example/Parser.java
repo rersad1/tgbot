@@ -19,8 +19,8 @@ public class Parser {
         GroupData groupData = gson.fromJson(groupDataJson, GroupData.class);
 
         // Вывод данных группы в консоль
-        System.out.println("Parsed data for group " + groupNumber + ":");
-        System.out.println(gson.toJson(groupData));
+        // System.out.println("Parsed data for group " + groupNumber + ":");
+        // System.out.println(gson.toJson(groupData));
 
         return groupData;
 

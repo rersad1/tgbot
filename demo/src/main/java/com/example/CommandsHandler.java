@@ -1,16 +1,18 @@
 package com.example;
 
-import java.util.Map;
-
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SendMessage;
-import java.time.*;
 
 public class CommandsHandler {
+
+    AnswerCreater answerCreater = new AnswerCreater();
+
     private String command;
     private String[] partsOfCommand;
     private String url;
     private String answer;
+    private long weekNumber;
+    StringBuilder futureAnswer = new StringBuilder();
     RequestCreator requestCreator = new RequestCreator();
     Parser parser = new Parser();
     public void parseCommand(String commandText) {
@@ -44,9 +46,7 @@ public class CommandsHandler {
 
     public void handleCommand(TelegramBot bot, String commandText, long chatId) {
         parseCommand(commandText);
-        
         switch (this.command) {
-
             case "REPORT":
                 String report = parseReportText(commandText);
                 bot.execute(new SendMessage(MyBot.logsChannel, report));
@@ -62,61 +62,27 @@ public class CommandsHandler {
         }
         String response = requestCreator.searchResult(url);
         GroupData groupData = parser.parse(response, partsOfCommand[partsOfCommand.length - 1]);
+        if (groupData == null) {
+            bot.execute(new SendMessage(chatId, "Данные не найдены"));
+            return;
+        }
         switch (this.command) {
             case "day_lessons":
-                answer = createStaticAnswer(groupData, partsOfCommand, 2);
-                break;
-        
             case "week_lessons":
-                answer = createStaticAnswer(groupData, partsOfCommand, 1);
+                weekNumber = Long.parseLong(partsOfCommand[partsOfCommand.length - 2]);
+                answer = answerCreater.createStaticAnswer(groupData, partsOfCommand, weekNumber, futureAnswer);
                 break;
+            
+            case "tommorow_lessons":
+                answer = answerCreater.getNextDayLessons(groupData, partsOfCommand[0], futureAnswer);
+                break;
+
+            case "near_lesson":
+                answer = answerCreater.getNearLesson(groupData, partsOfCommand[0], futureAnswer);
+                break;    
         }
         
         bot.execute(new SendMessage(chatId, answer));
-
-    } 
-
-    private String createStaticAnswer(GroupData groupData, String[] partsOfCommand, int indexOfWeek) {
-        StringBuilder answer = new StringBuilder();
-        for (Map.Entry<String, Day> entry : groupData.getDays().entrySet()) {
-            Day day = entry.getValue();
-            if (day.getName().equals("ВОСКРЕСЕНЬЕ")) {
-                continue;
-            }
-            answer.append(day.getName().substring(0, 1))
-                  .append(day.getName().substring(1).toLowerCase())
-                  .append("\n\n");
-            for (Lesson lesson : day.getLessons()) {
-                String week = lesson.getWeek();
-                if (week.equals(partsOfCommand[indexOfWeek])) {
-                    answer.append(lesson.getStart_time())
-                          .append(" ")
-                          .append(lesson.getSubjectType())
-                          .append(" ")
-                          .append(lesson.getName());
-                    if (lesson.getTeacher().isEmpty()) {
-                        answer.append("\n\n");
-                        continue;
-                    }
-                    answer.append(", ")
-                          .append(lesson.getTeacher());
-                    if (lesson.getForm().equals("distant")) {
-                        answer.append(", дистанционно");
-                    } else {
-                        answer.append(", ")
-                              .append(lesson.getRoom());
-                    }
-                    answer.append("\n\n");
-                }
-            }
-        }
-        return answer.toString();
+        futureAnswer.setLength(0);
     }
-
-    private String createDynamicAnswer(GroupData groupData) {
-        StringBuilder answer = new StringBuilder();
-        LocalDate today = LocalDate.now();
-        
-    }
-
 }
