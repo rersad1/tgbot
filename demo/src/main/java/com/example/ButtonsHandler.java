@@ -38,6 +38,7 @@ public class ButtonsHandler {
                 break;   
             default:
                 bot.execute(new SendMessage(chatId, "Введите номер группы, о которой хотите узнать информацию"));
+                commandsStrorage.setWaitingForGroup(true);
                 break;                                          
         }
 

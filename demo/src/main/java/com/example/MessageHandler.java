@@ -25,14 +25,16 @@ public class MessageHandler {
             commandsStrorage.addPartOfCommand(chatId, message);
             commandsStrorage.addPartOfCommand(chatId, "END");
         }
-        else if (message.matches("^\\d+$") && message.length() == 4 && commandsStrorage.getCurrentCommand(chatId) != null) {
+        else if (message.matches("^\\d+$") && message.length() == 4 && commandsStrorage.getCurrentCommand(chatId) != null && commandsStrorage.isWaitingForGroup()) { 
             message += " END";
             commandsStrorage.addPartOfCommand(chatId, message);
             bot.execute(new SendMessage(chatId, "Выполняется запрос..."));
-            
         }
         else {
             bot.execute(new SendMessage(chatId, "Введены неправильные данные. Попробуйте еще раз."));
+            bot.execute(new SendMessage(chatId, "Выберите функцию:").replyMarkup(functionsKeyboard));
+            commandsStrorage.clearCommand(chatId);
+            commandsStrorage.setWaitingForGroup(false);
             System.out.println(message);
         }
     }

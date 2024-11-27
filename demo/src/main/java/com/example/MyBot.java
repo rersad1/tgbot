@@ -36,6 +36,7 @@ public class MyBot {
                         String commandText = commandsStorage.getCurrentCommand(chatId);
                         commandsHandler.handleCommand(bot, commandText, chatId);
                         commandsStorage.clearCommand(chatId);
+                        commandsStorage.setWaitingForGroup(false);
                         bot.execute(new SendMessage(chatId, "Выберите функцию:").replyMarkup(functionsKeyboard));
                     }
                 }

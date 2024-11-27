@@ -38,7 +38,6 @@ public class AnswerCreater {
         boolean isReady = false;
         while (!isReady) {
             for (Map.Entry<String, Day> entry : groupData.getDays().entrySet()) {
-                System.out.println(today);
                 Day day = entry.getValue();
                 if (day.getLessons().isEmpty() || !day.getName().equals(dayOfWeek)) {
                     continue;
@@ -103,8 +102,13 @@ public class AnswerCreater {
                     break;
                 }
             }
+
             if (!isReady) {
                 switchDay();
+                currentTime = 0;
+            }
+            else if (weeksBetween > 52) {
+                break;
             }
         }
         return answer.toString();

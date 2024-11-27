@@ -5,7 +5,8 @@ import java.util.HashMap;
 public class CommandsStorage {
 
     private HashMap<Long, String> commands = new HashMap<Long, String>();
-    
+    private boolean isWaitingForGroup = false;
+
     public String getCurrentCommand(long chatId) {
         return commands.get(chatId);
     }
@@ -31,5 +32,13 @@ public class CommandsStorage {
             return lastFourChars.equals(" END"); // проверка, что последние 4 символа равны " END"
         }
         return false;
+    }
+
+    public void setWaitingForGroup(boolean isWaitingForGroup) {
+        this.isWaitingForGroup = isWaitingForGroup;
+    }
+
+    public boolean isWaitingForGroup() {
+        return isWaitingForGroup;
     }
 }

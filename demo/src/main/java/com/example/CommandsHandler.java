@@ -50,7 +50,8 @@ public class CommandsHandler {
             case "REPORT":
                 String report = parseReportText(commandText);
                 bot.execute(new SendMessage(MyBot.logsChannel, report));
-                break;
+                bot.execute(new SendMessage(chatId, "Репорт успешно отправлен"));
+                return;
 
             case "day_lessons":
                 url = "https://digital.etu.ru/api/mobile/schedule?weekDay=" + partsOfCommand[1] + "&subjectType=&groupNumber=" + partsOfCommand[partsOfCommand.length - 1] + "&joinWeeks=false";// Переделать под отправку в канал
@@ -60,6 +61,7 @@ public class CommandsHandler {
                 url = "https://digital.etu.ru/api/mobile/schedule?weekDay=&subjectType=&groupNumber=" + partsOfCommand[partsOfCommand.length - 1] + "&joinWeeks=false";
                 break;
         }
+
         String response = requestCreator.searchResult(url);
         GroupData groupData = parser.parse(response, partsOfCommand[partsOfCommand.length - 1]);
         if (groupData == null) {
