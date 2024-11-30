@@ -1,5 +1,10 @@
-package com.example;
+package com.Handlers;
 
+import com.MyBot;
+import com.Parser.GroupData;
+import com.Parser.Parser;
+import com.example.AnswerCreater;
+import com.example.RequestCreator;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SendMessage;
 

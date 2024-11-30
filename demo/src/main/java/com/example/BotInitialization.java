@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import com.MyBot;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.GetMe;
 import com.pengrad.telegrambot.response.GetMeResponse;
-
-
 
 public class BotInitialization {
 

@@ -1,5 +1,7 @@
-package com.example;
+package com.Handlers;
 
+import com.example.Buttons;
+import com.example.CommandsStorage;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.CallbackQuery;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;

@@ -1,5 +1,12 @@
-package com.example;
+package com;
 
+
+import com.Handlers.ButtonsHandler;
+import com.Handlers.CommandsHandler;
+import com.Handlers.MessageHandler;
+import com.example.BotInitialization;
+import com.example.Buttons;
+import com.example.CommandsStorage;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;

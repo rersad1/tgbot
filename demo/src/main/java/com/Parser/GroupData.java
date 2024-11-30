@@ -1,4 +1,4 @@
-package com.example;
+package com.Parser;
 
 import java.util.Map;
 

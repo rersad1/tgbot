@@ -8,6 +8,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.Map;
 
+import com.Parser.Day;
+import com.Parser.GroupData;
+import com.Parser.Lesson;
+
 public class AnswerCreater {
     private LocalDate today;
     private LocalDate semStartDate;
