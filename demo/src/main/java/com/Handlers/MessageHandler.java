@@ -10,7 +10,7 @@ public class MessageHandler {
 
         switch (message) { // обработка команд через /command
             case "/start":
-                bot.execute(new SendMessage(chatId, "Добро пожаловать!"));
+                bot.execute(new SendMessage(chatId, "Добро пожаловать! Чтобы узнать узнать команды введите /help"));
                 bot.execute(new SendMessage(chatId, "Выберите функцию:").replyMarkup(functionsKeyboard));                
                 return;
             case "/report":

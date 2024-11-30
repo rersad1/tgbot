@@ -20,13 +20,14 @@ public class CommandsHandler {
     StringBuilder futureAnswer = new StringBuilder();
     RequestCreator requestCreator = new RequestCreator();
     Parser parser = new Parser();
+    
     public void parseCommand(String commandText) {
         int firstSpaceIndex = commandText.indexOf(' ');
         if (firstSpaceIndex != -1) {
             this.command = commandText.substring(0, firstSpaceIndex);
         } 
         else {
-            this.command = commandText; // Если нет пробелов, вся строка является командой
+            this.command = commandText;
         }
         // Удаление последнего элемента из строки перед разбиением
         int lastSpaceIndex = commandText.lastIndexOf(' ');
@@ -34,7 +35,7 @@ public class CommandsHandler {
             this.partsOfCommand = commandText.substring(0, lastSpaceIndex).split(" ");
         } 
         else {
-            this.partsOfCommand = new String[0]; // Если нет пробелов, массив будет пустым
+            this.partsOfCommand = new String[0];
         }
     }
 
@@ -49,6 +50,7 @@ public class CommandsHandler {
         return "";
     }
 
+    // обработчик собранных команд
     public void handleCommand(TelegramBot bot, String commandText, long chatId) {
         parseCommand(commandText);
         switch (this.command) {
@@ -67,12 +69,15 @@ public class CommandsHandler {
                 break;
         }
 
+        // создание запроса и парсинг данных
         String response = requestCreator.searchResult(url);
         GroupData groupData = parser.parse(response, partsOfCommand[partsOfCommand.length - 1]);
         if (groupData == null) {
             bot.execute(new SendMessage(chatId, "Данные не найдены"));
             return;
         }
+
+        // создание необходимого ответа
         switch (this.command) {
             case "day_lessons":
             case "week_lessons":

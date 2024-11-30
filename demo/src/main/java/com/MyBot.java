@@ -31,10 +31,10 @@ public class MyBot {
 
         bot.setUpdatesListener(updates -> {
             for (Update update : updates) {
-                if (update.callbackQuery() != null) {
+                if (update.callbackQuery() != null) { 
                     buttonsHandler.handleCallbackQuery(bot, update.callbackQuery(), commandsStorage);
                 }
-                else if (update.message() != null && update.message().text() != null) {
+                else if (update.message() != null && update.message().text() != null) { 
                     long chatId = update.message().chat().id();
                     String messageText = update.message().text();
                     messageHandler.handle(messageText, chatId, bot, commandsStorage, functionsKeyboard);                   

@@ -11,7 +11,8 @@ public class CommandsStorage {
         return commands.get(chatId);
     }
 
-    public void addPartOfCommand(long chatId, String partOfCommand) { // добавление части команды
+    // добавление части команды
+    public void addPartOfCommand(long chatId, String partOfCommand) { 
         if (commands.containsKey(chatId)) {
             commands.put(chatId, commands.get(chatId) + " " + partOfCommand);
         } 
@@ -21,15 +22,17 @@ public class CommandsStorage {
         System.out.println(commands.get(chatId));
     }
 
-    public void clearCommand(long chatId) { // очистка команды
+    // очистка команды
+    public void clearCommand(long chatId) { 
         commands.remove(chatId);
     }
 
-    public boolean isCommandReady(long chatId) { // проверка на готовность команды
+    // проверка на готовность команды
+    public boolean isCommandReady(long chatId) { 
         String command = commands.get(chatId);
-        if (command != null && command.length() >= 4) { 
+        if (command != null && command.length() >= 4) { // проверка, что последние 4 символа равны " END"
             String lastFourChars = command.substring(command.length() - 4);
-            return lastFourChars.equals(" END"); // проверка, что последние 4 символа равны " END"
+            return lastFourChars.equals(" END"); 
         }
         return false;
     }

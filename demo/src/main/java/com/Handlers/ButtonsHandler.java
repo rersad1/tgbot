@@ -22,7 +22,7 @@ public class ButtonsHandler {
         InlineKeyboardMarkup weekNumber = buttons.createWeekNumberkeyboard();
         commandsStrorage.addPartOfCommand(chatId, callbackData);
 
-
+        // обработка нажатий на кнопки
         switch(callbackData) {
             case "day_lessons":
                 bot.execute(new SendMessage(chatId, "Выберите день недели:").replyMarkup(daysOfWeak));
@@ -45,7 +45,6 @@ public class ButtonsHandler {
         }
 
         bot.execute(new DeleteMessage(chatId, messageId));        
-        // Ответ на нажатие кнопки
         bot.execute(new AnswerCallbackQuery(callbackQuery.id()));
     }
 }

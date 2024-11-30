@@ -19,7 +19,8 @@ public class AnswerCreater {
     private long weeksBetween;
     private long currentWeek;
 
-    public String createStaticAnswer(GroupData groupData, String[] partsOfCommand, long weekNumber, StringBuilder answer) {
+    // создание ответа для функций tommorow_lessons и week_lessons
+    public String createStaticAnswer(GroupData groupData, String[] partsOfCommand, long weekNumber, StringBuilder answer) {  
         for (Map.Entry<String, Day> entry : groupData.getDays().entrySet()) {
             Day day = entry.getValue();
             if (day.getLessons().isEmpty()) {
@@ -34,13 +35,14 @@ public class AnswerCreater {
         return answer.toString();
     }
 
+    // создание ответа для функции near_lesson
     public String getNearLesson(GroupData groupData, String command, StringBuilder answer) {
         setTodaySettings();
         ZonedDateTime timeNow = ZonedDateTime.now(ZoneId.of("Europe/Moscow"));
         int currentTime = timeNow.toLocalTime().toSecondOfDay();
         System.err.println(currentTime);
         boolean isReady = false;
-        while (!isReady) {
+        while (!isReady) { // пока не найдем подоходящий день
             for (Map.Entry<String, Day> entry : groupData.getDays().entrySet()) {
                 Day day = entry.getValue();
                 if (day.getLessons().isEmpty() || !day.getName().equals(dayOfWeek)) {
@@ -118,6 +120,7 @@ public class AnswerCreater {
         return answer.toString();
     }
 
+    // создание ответа для функции tommorow_lessons
     public String getNextDayLessons(GroupData groupData, String command, StringBuilder answer) {
         setTodaySettings();
         switchDay();
@@ -141,6 +144,7 @@ public class AnswerCreater {
         return answer.toString();
     }
 
+    // получение все пар за день в хорошем виде
     private StringBuilder getDayLessons(GroupData groupData, Day day, long currentWeek, StringBuilder answer) {
         answer.append(day.getName().substring(0, 1))
               .append(day.getName().substring(1).toLowerCase())
@@ -169,7 +173,8 @@ public class AnswerCreater {
         }
         return answer;
     }
-
+    
+    // получение даты начала семестра
     private void setSemStartDate(LocalDate today) {
         if (today.getMonthValue() < 2) {
             semStartDate = LocalDate.of(today.getYear() - 1, 9, 1);
@@ -182,6 +187,7 @@ public class AnswerCreater {
         }
     }
 
+    // переключение на следующий день
     private void switchDay() {
         today = today.plusDays(1);
         dayOfWeek = today.getDayOfWeek().getDisplayName(TextStyle.FULL, new Locale("ru")).toUpperCase();
@@ -189,6 +195,7 @@ public class AnswerCreater {
         currentWeek = weeksBetween % 2 + 1;
     }
 
+    // установка настроек для текущего дня
     private void setTodaySettings() {
         today = LocalDate.now();
         setSemStartDate(today);

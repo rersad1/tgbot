@@ -18,7 +18,6 @@ public class Lesson {
     private List<String> temp_changes;
     private String url;
 
-    // Getters and setters for all fields
     public String getTeacher() {
         return teacher;
     }

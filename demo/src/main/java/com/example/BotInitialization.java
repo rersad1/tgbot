@@ -14,7 +14,8 @@ public class BotInitialization {
     private String token;
     private Long logsChatId;
     
-    private void validateToken() { // проверка токена на валидность
+    // проверка токена на валидность
+    private void validateToken() { 
         TelegramBot bot = new TelegramBot(token);
         GetMeResponse getMeResponse = bot.execute(new GetMe());
         if (!getMeResponse.isOk()) {
@@ -23,7 +24,8 @@ public class BotInitialization {
         }
     }    
 
-    public BotInitialization() { // загрузка токена из файла
+    // загрузка токена из файла конфигурации
+    public BotInitialization() { 
         Properties props = new Properties();
         try (InputStream input = MyBot.class.getClassLoader().getResourceAsStream("config.properties")) {
             props.load(input);  
